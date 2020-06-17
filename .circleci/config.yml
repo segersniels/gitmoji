@@ -34,7 +34,7 @@ jobs:
       - attach_workspace:
           at: ~/gitmoji
       - run:
-          name: 'NPM/yarn release'
+          name: 'yarn release'
           command: |
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/gitmoji/.npmrc
             yarn publish || true
