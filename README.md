@@ -7,3 +7,20 @@ This project provides an easy solution for using gitmoji from your command line.
 ## About
 
 A simplistic interpretation of the `carloscuesta/gitmoji-cli` repository with only basic commit functionality.
+
+## Usage
+
+```
+Usage: gitmoji [options] [command]
+
+A gitmoji client for using emojis on commit messages.
+
+Options:
+  -V, --version   output the version number
+  -c, --commit    Interactively commit using the prompts
+  -h, --help      display help for command
+
+Commands:
+  commit          Interactively commit using the prompts
+  help [command]  display help for command
+```

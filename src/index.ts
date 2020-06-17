@@ -47,12 +47,24 @@ const commit = async () => {
   ]);
 };
 
+const run = async () => {
+  if (program.commit) {
+    await commit();
+  }
+
+  // Display usage when no command or option passed
+  if (program.args.length === 0 && !program.commit) {
+    program.help();
+  }
+};
+
 (async () => {
   program
     .name('gitmoji')
     .version(packageJson.version)
     .description('A gitmoji client for using emojis on commit messages.')
-    .option('-c, --commit', 'Interactively commit using the prompts');
+    .option('-c, --commit', 'Interactively commit using the prompts')
+    .action(run);
 
   program
     .command('commit')
@@ -60,13 +72,4 @@ const commit = async () => {
     .action(commit);
 
   await program.parseAsync(process.argv);
-
-  if (program.commit > 0) {
-    await commit();
-  }
-
-  // Display usage when no command or option passed
-  if (program.args.length === 0) {
-    program.help();
-  }
 })();
