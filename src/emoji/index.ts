@@ -21,7 +21,7 @@ export const getEmojis = async (): Promise<{ gitmojis: Gitmoji[] }> => {
     const duration = config.get(ConfigOptions.CACHE_DURATION);
 
     if (
-      duration === -1 ||
+      duration === 0 ||
       moment(cached.timestamp)
         .add(config.get(ConfigOptions.CACHE_DURATION), 'seconds')
         .isAfter(moment())

@@ -71,15 +71,15 @@ const cacheHandler = {
   view: () => {
     console.log(JSON.stringify(config.view(), null, 2));
   },
-  duration: (obj: { args: string[] }) => {
-    const value = Number(obj.args[1]);
+  duration: (value: string) => {
+    const parsed = Number(value);
 
     // Check if valid number passed
-    if (isNaN(value)) {
+    if (isNaN(parsed)) {
       return;
     }
 
-    config.set(ConfigOptions.CACHE_DURATION, value);
+    config.set(ConfigOptions.CACHE_DURATION, parsed);
   },
 };
 
@@ -114,9 +114,9 @@ const cacheHandler = {
     .description('View the current cache config')
     .action(cacheHandler.view);
   cache
-    .command('duration')
+    .command('duration <value>')
     .description(
-      'When the cache duration expires the external emoji data will be updated (default: -1 (cache never expires))',
+      'When the cache duration expires the external emoji data will be updated (default: 0 (cache never expires))',
     )
     .action(cacheHandler.duration);
   program.addCommand(cache);
