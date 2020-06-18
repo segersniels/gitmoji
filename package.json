@@ -13,6 +13,23 @@
     "publish:beta": "yarn publish --tag beta",
     "publish:master": "yarn publish"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/segersniels/gitmoji.git"
+  },
+  "keywords": [
+    "git",
+    "cli",
+    "emoji",
+    "gitmoji",
+    "prompt",
+    "simple",
+    "basic"
+  ],
+  "bugs": {
+    "url": "https://github.com/segersniels/gitmoji/issues"
+  },
+  "homepage": "https://github.com/segersniels/gitmoji#readme",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
