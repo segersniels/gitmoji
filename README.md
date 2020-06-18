@@ -16,11 +16,11 @@ Usage: gitmoji [options] [command]
 A gitmoji client for using emojis on commit messages.
 
 Options:
-  -V, --version   output the version number
-  -c, --commit    Interactively commit using the prompts
-  -h, --help      display help for command
+  -V, --version  output the version number
+  -c, --commit   Interactively commit using the prompts
+  -h, --help     display help for command
 
 Commands:
-  commit          Interactively commit using the prompts
-  help [command]  display help for command
+  commit         Interactively commit using the prompts
+  cache          Configure cache behaviour
 ```
