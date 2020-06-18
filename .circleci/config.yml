@@ -33,11 +33,16 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/gitmoji
+      - run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/gitmoji/.npmrc
       - run:
-          name: 'yarn release'
+          name: 'yarn Release'
           command: |
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/gitmoji/.npmrc
-            yarn publish || true
+            VERSION=$(cat ~/gitmoji/package.json |grep version)
+            if [[ "${VERSION}" == *"beta"* ]]; then
+              yarn publish:beta || true
+            else
+              yarn publish:master || true
+            fi
 
 workflows:
   version: 2

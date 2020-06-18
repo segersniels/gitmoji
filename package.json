@@ -9,7 +9,9 @@
     "build": "ncc build src/index.ts -m -o dist",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
-    "check:typescript": "tsc --noEmit --skipLibCheck --project ."
+    "check:typescript": "tsc --noEmit --skipLibCheck --project .",
+    "publish:beta": "yarn publish --tag beta",
+    "publish:master": "yarn publish"
   },
   "publishConfig": {
     "access": "public",
