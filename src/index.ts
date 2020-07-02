@@ -46,6 +46,7 @@ const run = async () => {
     .action(cacheHandler.disable);
   cache
     .command('view')
+    .aliases(['ls'])
     .description('View the current cache config')
     .action(cacheHandler.view);
   cache
@@ -69,6 +70,7 @@ const run = async () => {
     .action(configHandler.disable);
   config
     .command('list')
+    .aliases(['ls'])
     .description('View the current config')
     .action(configHandler.list);
   program.addCommand(config);
