@@ -12,7 +12,7 @@ enum SubCommand {
 
 const configure = async (type: SubCommand) => {
   const global = config.list() as GlobalConfig;
-  const keys = Object.keys(config).filter(key =>
+  const keys = Object.keys(global).filter(key =>
     type === SubCommand.ENABLE
       ? !global[key as ConfigOptions]
       : global[key as ConfigOptions],
