@@ -6,8 +6,8 @@ import { ConfigOptions } from 'enums/Options';
 const config = new Config(ConfigType.CONFIG);
 
 enum SubCommand {
-  ENABLE = 'ENABLE',
-  DISABLE = 'DISABLE',
+  ENABLE = 'enable',
+  DISABLE = 'disable',
 }
 
 const configure = async (type: SubCommand) => {
@@ -25,7 +25,7 @@ const configure = async (type: SubCommand) => {
   const { option } = await prompts({
     type: 'autocomplete',
     name: 'option',
-    message: 'Choose a gitmoji',
+    message: `Choose an option to ${type}`,
     choices: keys.map(key => ({
       title: key,
       value: key,
