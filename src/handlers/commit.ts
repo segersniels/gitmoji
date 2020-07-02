@@ -48,9 +48,11 @@ export default {
     spawn('git', [
       'commit',
       '-m',
-      shouldUppercase
-        ? `${emoji} ${message.charAt(0).toUpperCase() + message.slice(1)}`
-        : message,
+      `${emoji} ${
+        shouldUppercase
+          ? message.charAt(0).toUpperCase() + message.slice(1)
+          : message
+      }`,
     ]);
   },
 };
