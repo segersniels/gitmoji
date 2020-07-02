@@ -1,46 +1,28 @@
 import { name } from 'package';
 import { homedir } from 'os';
 import Configstore from 'configstore';
-import { CacheOptions, ConfigOptions } from 'enums/Options';
-import ConfigType from 'enums/ConfigType';
+import ConfigOptions from 'enums/ConfigOptions';
 
-export type CacheConfig = Record<CacheOptions, number | boolean>;
-export type GlobalConfig = Record<ConfigOptions, boolean>;
+type Config = Record<ConfigOptions, number | boolean>;
 
-export const defaultCache: CacheConfig = {
-  [CacheOptions.CACHE_DURATION]: -1,
-  [CacheOptions.ENABLE_CACHE]: true,
-};
-export const defaultConfig: GlobalConfig = {
+export const defaultConfig: Config = {
   [ConfigOptions.UPPERCASE_FIRST_CHARACTER]: false,
-};
-
-type Config = GlobalConfig | CacheConfig;
-
-const ConfigPaths: Record<ConfigType, string> = {
-  CONFIG: `${homedir()}/.gitmoji/config.json`,
-  CACHE: `${homedir()}/.gitmoji/cache.json`,
 };
 
 export default class {
   private initialConfig: Config;
-  private configPath: string;
 
-  constructor(type: ConfigType) {
-    this.initialConfig =
-      type === ConfigType.CONFIG ? defaultConfig : defaultCache;
-    this.configPath = ConfigPaths[type];
+  constructor() {
+    this.initialConfig = defaultConfig;
   }
 
   private get config(): Configstore {
     return new Configstore(name, this.initialConfig, {
-      configPath: this.configPath,
+      configPath: `${homedir()}/.gitmoji/config.json`,
     });
   }
 
-  public get<T extends CacheOptions | ConfigOptions>(
-    key: T,
-  ): T extends CacheOptions ? number | boolean : boolean {
+  public get(key: ConfigOptions): boolean {
     // Get the value from the config
     const value = this.config.get(key);
 
@@ -52,10 +34,7 @@ export default class {
     return value;
   }
 
-  public set<T extends CacheOptions | ConfigOptions>(
-    key: T,
-    value: T extends CacheOptions ? number | boolean : boolean,
-  ) {
+  public set(key: ConfigOptions, value: boolean) {
     if (typeof (defaultConfig as any)[key] === 'undefined') {
       console.error(`Invalid config '${key}' detected`);
       process.exit(1);

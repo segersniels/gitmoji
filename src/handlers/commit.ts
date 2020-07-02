@@ -2,10 +2,9 @@ import prompts from 'prompts';
 import { spawn } from 'child_process';
 import { getEmojis } from 'emoji';
 import Config from 'config';
-import ConfigType from 'enums/ConfigType';
-import { ConfigOptions } from 'enums/Options';
+import ConfigOptions from 'enums/ConfigOptions';
 
-const config = new Config(ConfigType.CONFIG);
+const config = new Config();
 
 export default {
   commit: async () => {

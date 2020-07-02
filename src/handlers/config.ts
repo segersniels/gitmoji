@@ -1,9 +1,8 @@
-import Config, { GlobalConfig } from 'config';
+import Config from 'config';
 import prompts from 'prompts';
-import ConfigType from 'enums/ConfigType';
-import { ConfigOptions } from 'enums/Options';
+import ConfigOptions from 'enums/ConfigOptions';
 
-const config = new Config(ConfigType.CONFIG);
+const config = new Config();
 
 enum SubCommand {
   ENABLE = 'enable',
@@ -11,7 +10,7 @@ enum SubCommand {
 }
 
 const configure = async (type: SubCommand) => {
-  const global = config.list() as GlobalConfig;
+  const global = config.list();
   const keys = Object.keys(global).filter(key =>
     type === SubCommand.ENABLE
       ? !global[key as ConfigOptions]
