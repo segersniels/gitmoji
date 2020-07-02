@@ -1,11 +1,13 @@
 import fetch from 'cross-fetch';
-import Cache from 'cache';
+import Cache from './cache';
 import { homedir } from 'os';
 import moment from 'moment';
-import Config, { ConfigOptions } from 'config';
+import Config from 'config';
+import { CacheOptions } from 'enums/Options';
+import ConfigType from 'enums/ConfigType';
 
 const cache = new Cache(`${homedir()}/.gitmoji/gitmojis.json`);
-const config = new Config();
+const config = new Config(ConfigType.CACHE);
 
 interface Gitmoji {
   emoji: string;
@@ -15,15 +17,15 @@ interface Gitmoji {
 }
 
 export const getEmojis = async (): Promise<{ gitmojis: Gitmoji[] }> => {
-  const shouldCache = config.get(ConfigOptions.ENABLE_CACHE);
+  const shouldCache = config.get(CacheOptions.ENABLE_CACHE);
   if (shouldCache && (await cache.exists())) {
     const cached = await cache.read();
-    const duration = config.get(ConfigOptions.CACHE_DURATION);
+    const duration = config.get(CacheOptions.CACHE_DURATION);
 
     if (
       duration === 0 ||
       moment(cached.timestamp)
-        .add(config.get(ConfigOptions.CACHE_DURATION), 'seconds')
+        .add(config.get(CacheOptions.CACHE_DURATION) as number, 'seconds')
         .isAfter(moment())
     ) {
       return cached;

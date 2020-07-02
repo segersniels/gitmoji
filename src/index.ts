@@ -1,86 +1,21 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import prompts from 'prompts';
 import packageJson from 'package';
-import { spawn } from 'child_process';
-import { getEmojis } from 'emoji';
-import Config, { ConfigOptions } from 'config';
+import cacheHandler from 'handlers/cache';
+import commitHandler from 'handlers/commit';
+import configHandler from 'handlers/config';
 
 const program = new Command();
-const config = new Config();
-
-const commit = async () => {
-  const { gitmojis } = await getEmojis();
-
-  const { emoji } = await prompts({
-    type: 'autocomplete',
-    name: 'emoji',
-    message: 'Choose a gitmoji',
-    choices: gitmojis.map(gitmoji => ({
-      title: `${gitmoji.emoji}  - ${gitmoji.description}`,
-      value: gitmoji.code,
-    })),
-    suggest: (input, choices) => {
-      return Promise.resolve(
-        choices.filter(i =>
-          i.title.toLowerCase().includes(input.toLowerCase()),
-        ),
-      );
-    },
-  });
-
-  if (!emoji) {
-    process.exit(0);
-  }
-
-  const { message } = await prompts({
-    type: 'text',
-    name: 'message',
-    message: 'Enter the commit title',
-  });
-
-  if (!message) {
-    process.exit(0);
-  }
-
-  spawn('git', [
-    'commit',
-    '-m',
-    `${emoji} ${message.charAt(0).toUpperCase() + message.slice(1)}`,
-  ]);
-};
 
 const run = async () => {
   if (program.commit) {
-    await commit();
+    await commitHandler.commit();
   }
 
   // Display usage when no command or option passed
   if (program.args.length === 0 && !program.commit) {
     program.help();
   }
-};
-
-const cacheHandler = {
-  enable: () => {
-    config.set(ConfigOptions.ENABLE_CACHE, true);
-  },
-  disable: () => {
-    config.set(ConfigOptions.ENABLE_CACHE, false);
-  },
-  view: () => {
-    console.log(JSON.stringify(config.view(), null, 2));
-  },
-  duration: (value: string) => {
-    const parsed = Number(value);
-
-    // Check if valid number passed
-    if (isNaN(parsed)) {
-      return;
-    }
-
-    config.set(ConfigOptions.CACHE_DURATION, parsed);
-  },
 };
 
 (async () => {
@@ -94,7 +29,7 @@ const cacheHandler = {
   program
     .command('commit')
     .description('Interactively commit using the prompts')
-    .action(commit);
+    .action(commitHandler.commit);
 
   const cache = new Command('cache').description('Configure cache behaviour');
   cache
@@ -120,6 +55,23 @@ const cacheHandler = {
     )
     .action(cacheHandler.duration);
   program.addCommand(cache);
+
+  const config = new Command('config').description(
+    'Configure general gitmoji behaviour',
+  );
+  config
+    .command('enable')
+    .description('Enable behaviour')
+    .action(configHandler.enable);
+  config
+    .command('disable')
+    .description('Disable behaviour')
+    .action(configHandler.disable);
+  config
+    .command('list')
+    .description('View the current config')
+    .action(configHandler.list);
+  program.addCommand(config);
 
   await program.parseAsync(process.argv);
 })();

@@ -23,4 +23,5 @@ Options:
 Commands:
   commit         Interactively commit using the prompts
   cache          Configure cache behaviour
+  config         Configure general gitmoji behaviour
 ```
