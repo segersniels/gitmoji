@@ -22,6 +22,34 @@ Options:
 
 Commands:
   commit         Interactively commit using the prompts
-  cache          Configure cache behaviour
   config         Configure general gitmoji behaviour
+```
+
+### Config
+
+Configure global `gitmoji` settings through an easy prompt selection.
+
+```
+Usage: gitmoji config [options] [command]
+
+Configure general gitmoji behaviour
+
+Options:
+  -h, --help      display help for command
+
+Commands:
+  enable          Enable behaviour
+  disable         Disable behaviour
+  list|ls         View the current config
+  help [command]  display help for command
+```
+
+#### Examples
+
+To enable automatic uppercasing of the first character of your commit message:
+
+```
+$ gitmoji config enable
+? Choose an option to enable ›
+❯ uppercase-first-character
 ```
