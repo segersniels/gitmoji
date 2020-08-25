@@ -1,0 +1,63 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+
+defaults: &defaults
+  runs-on: ubuntu-latest
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cache target
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn install
+      - name: Check Typescript
+        run: yarn check:typescript
+      - name: Linting
+        run: yarn lint
+      - name: Build and see if executable works
+        run: |
+          yarn build
+          node dist/index.js --help
+      - name: Persist artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  release:
+    <<: *defaults
+    needs: build
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Grab persisted artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - name: Configure registry
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+      - name: Release
+        run: |
+          VERSION=$(cat ~/gitmoji/package.json |grep version)
+          if [[ "${VERSION}" == *"beta"* ]]; then
+            yarn publish:beta || true
+          else
+            yarn publish:master || true
+          fi
