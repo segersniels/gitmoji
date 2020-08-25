@@ -52,7 +52,7 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
       - name: Release
         run: |
-          VERSION=$(cat ~/gitmoji/package.json |grep version)
+          VERSION=$(cat package.json |grep version)
           if [[ "${VERSION}" == *"beta"* ]]; then
             yarn publish:beta || true
           else
