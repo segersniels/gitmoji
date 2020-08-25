@@ -54,7 +54,7 @@ jobs:
         run: |
           VERSION=$(cat package.json |grep version)
           if [[ "${VERSION}" == *"beta"* ]]; then
-            yarn publish:beta || true
+            yarn publish:beta
           else
-            yarn publish:master || true
+            yarn publish:master
           fi
