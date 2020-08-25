@@ -7,7 +7,7 @@ import ConfigOptions from 'enums/ConfigOptions';
 const config = new Config();
 
 export default {
-  commit: async () => {
+  commit: async (uppercase?: boolean) => {
     const { gitmojis } = await getEmojis();
 
     const { emoji } = await prompts({
@@ -42,7 +42,8 @@ export default {
     }
 
     // Check if first letter should be uppercased
-    const shouldUppercase = config.get(ConfigOptions.UPPERCASE_FIRST_CHARACTER);
+    const shouldUppercase =
+      uppercase ?? config.get(ConfigOptions.UPPERCASE_FIRST_CHARACTER);
 
     spawn('git', [
       'commit',
