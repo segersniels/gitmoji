@@ -1,6 +1,6 @@
 # gitmoji
 
-[![CircleCI](https://circleci.com/gh/segersniels/gitmoji.svg?style=shield)](https://circleci.com/gh/segersniels/gitmoji/tree/master)[![npm](https://badge.fury.io/js/%40segersniels%2Fgitmoji.svg)](https://www.npmjs.com/package/@segersniels/gitmoji)
+[![Actions](https://action-badges.now.sh/segersniels/gitmoji)](https://github.com/segersniels/gitmoji/actions)[![npm](https://badge.fury.io/js/%40segersniels%2Fgitmoji.svg)](https://www.npmjs.com/package/@segersniels/gitmoji)
 
 This project provides an easy solution for using gitmoji from your command line. Gitmoji solves the hassle of searching through the gitmoji list! 🎉
 
