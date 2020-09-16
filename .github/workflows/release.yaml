@@ -70,4 +70,4 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifacts
-      - name: yarn publish:master
+      - run: yarn publish:master
