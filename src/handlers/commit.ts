@@ -46,11 +46,11 @@ export default {
       uppercase ?? config.get(ConfigOptions.UPPERCASE_FIRST_CHARACTER);
 
     execSync(
-      `git commit -m ${emoji} ${
+      `git commit -m '${emoji} ${
         shouldUppercase
           ? message.charAt(0).toUpperCase() + message.slice(1)
           : message
-      }`,
+      }'`,
     );
   },
 };
