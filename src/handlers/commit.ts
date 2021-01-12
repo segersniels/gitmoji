@@ -1,5 +1,5 @@
 import prompts from 'prompts';
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import { getEmojis } from 'emoji';
 import Config from 'config';
 import ConfigOptions from 'enums/ConfigOptions';
@@ -45,12 +45,15 @@ export default {
     const shouldUppercase =
       uppercase ?? config.get(ConfigOptions.UPPERCASE_FIRST_CHARACTER);
 
-    execSync(
-      `git commit -m "${emoji} ${
-        shouldUppercase
-          ? message.charAt(0).toUpperCase() + message.slice(1)
-          : message
-      }"`,
-    );
+    // Construct the final commit message
+    const messageToSend = `${emoji} ${
+      shouldUppercase
+        ? message.charAt(0).toUpperCase() + message.slice(1)
+        : message
+    }`;
+
+    spawnSync('git', ['commit', '-m', `"${messageToSend}"`], {
+      stdio: 'inherit',
+    });
   },
 };
