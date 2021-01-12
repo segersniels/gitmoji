@@ -52,7 +52,7 @@ export default {
         : message
     }`;
 
-    spawnSync('git', ['commit', '-m', `"${messageToSend}"`], {
+    spawnSync('git', ['commit', '-m', `${messageToSend}`], {
       stdio: 'inherit',
     });
   },
