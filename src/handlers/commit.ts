@@ -7,7 +7,7 @@ import ConfigOptions from 'enums/ConfigOptions';
 const config = new Config();
 
 export default {
-  commit: async (uppercase?: boolean) => {
+  commit: async (uppercase?: boolean, verify = true) => {
     const { gitmojis } = await getEmojis();
 
     const { emoji } = await prompts({
@@ -52,7 +52,13 @@ export default {
         : message
     }`;
 
-    spawnSync('git', ['commit', '-m', `${messageToSend}`], {
+    // Construct arguments
+    const args = ['commit', '-m', `${messageToSend}`];
+    if (!verify) {
+      args.push('--no-verify');
+    }
+
+    spawnSync('git', args, {
       stdio: 'inherit',
     });
   },

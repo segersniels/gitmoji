@@ -16,9 +16,10 @@ const program = new Command();
       '--no-uppercase',
       'Disable automatic upper casing of the first letter',
     )
+    .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .action(async () => {
       if (program.commit) {
-        await commitHandler.commit(program.uppercase);
+        await commitHandler.commit(program.uppercase, program.verify);
       }
 
       // Display usage when no command or option passed
@@ -34,8 +35,9 @@ const program = new Command();
       '--no-uppercase',
       'Disable automatic upper casing of the first letter',
     )
+    .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .action(async () => {
-      await commitHandler.commit(program.uppercase);
+      await commitHandler.commit(program.uppercase, program.verify);
     });
 
   const config = new Command('config').description(
