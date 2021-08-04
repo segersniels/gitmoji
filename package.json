@@ -46,6 +46,7 @@
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "moment": "^2.29.1",
     "pkg": "^4.4.8",
     "prettier": "^1.19.1",
     "prompts": "^2.4.1",
