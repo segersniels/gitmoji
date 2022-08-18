@@ -31,7 +31,7 @@ export default {
       process.exit(0);
     }
 
-    const { message } = await prompts({
+    let { message }: { message: string } = await prompts({
       type: 'text',
       name: 'message',
       message: 'Enter the commit title',
@@ -40,6 +40,9 @@ export default {
     if (!message) {
       process.exit(0);
     }
+
+    // Strip leading and trailing whitespace
+    message = message.trim();
 
     // Check if first letter should be uppercased
     const shouldUppercase =
