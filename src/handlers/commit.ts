@@ -9,37 +9,48 @@ const config = new Config();
 export default {
   commit: async (uppercase?: boolean, verify = true) => {
     const { gitmojis } = await getEmojis();
+    let emoji: string, message: string;
 
-    const { emoji } = await prompts({
-      type: 'autocomplete',
-      name: 'emoji',
-      message: 'Choose a gitmoji',
-      choices: gitmojis.map(gitmoji => ({
-        title: `${gitmoji.emoji}  - ${gitmoji.description}`,
-        value: gitmoji.code,
-      })),
-      suggest: (input, choices) => {
-        return Promise.resolve(
-          choices.filter(i =>
-            i.title.toLowerCase().includes(input.toLowerCase()),
-          ),
-        );
-      },
-    });
+    do {
+      const response: { emoji: string } = await prompts(
+        {
+          type: 'autocomplete',
+          name: 'emoji',
+          message: 'Choose a gitmoji',
+          choices: gitmojis.map(gitmoji => ({
+            title: `${gitmoji.emoji}  - ${gitmoji.description}`,
+            value: gitmoji.code,
+          })),
+          suggest: (input, choices) => {
+            return Promise.resolve(
+              choices.filter(i =>
+                i.title.toLowerCase().includes(input.toLowerCase()),
+              ),
+            );
+          },
+        },
+        {
+          onCancel: () => process.exit(),
+        },
+      );
 
-    if (!emoji) {
-      process.exit(0);
-    }
+      emoji = response.emoji;
+    } while (!emoji);
 
-    let { message }: { message: string } = await prompts({
-      type: 'text',
-      name: 'message',
-      message: 'Enter the commit title',
-    });
+    do {
+      const response: { message: string } = await prompts(
+        {
+          type: 'text',
+          name: 'message',
+          message: 'Enter the commit title',
+        },
+        {
+          onCancel: () => process.exit(),
+        },
+      );
 
-    if (!message) {
-      process.exit(0);
-    }
+      message = response.message;
+    } while (!message);
 
     // Strip leading and trailing whitespace
     message = message.trim();
