@@ -6,7 +6,7 @@
     "gitmoji": "dist/index.js"
   },
   "scripts": {
-    "build": "ncc build src/index.ts -m -o dist",
+    "build": "tsup src/index.ts --clean --target node12 --minify --keep-names --out-dir dist",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "check:typescript": "tsc --noEmit --skipLibCheck --project .",
@@ -39,7 +39,6 @@
     "@types/prompts": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
-    "@zeit/ncc": "^0.22.3",
     "commander": "^5.1.0",
     "configstore": "^5.0.1",
     "cross-fetch": "^3.0.5",
@@ -51,6 +50,7 @@
     "prettier": "^1.19.1",
     "prompts": "^2.4.1",
     "tsconfig-paths": "^3.9.0",
+    "tsup": "^6.5.0",
     "typescript": "^3.9.5"
   }
 }
