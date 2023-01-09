@@ -17,7 +17,7 @@ interface Response {
 const fetchEmojis = async () => {
   try {
     const response = await fetch(
-      'https://raw.githubusercontent.com/carloscuesta/gitmoji/master/src/data/gitmojis.json',
+      'https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json',
     );
 
     if (!response.ok) {
