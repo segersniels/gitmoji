@@ -7,7 +7,7 @@ import ConfigOptions from 'enums/ConfigOptions';
 const config = new Config();
 
 export default {
-  commit: async (uppercase?: boolean, verify = true) => {
+  commit: async (verify = true) => {
     const { gitmojis } = await getEmojis();
     let emoji: string, message: string;
 
@@ -55,13 +55,9 @@ export default {
     // Strip leading and trailing whitespace
     message = message.trim();
 
-    // Check if first letter should be uppercased
-    const shouldUppercase =
-      uppercase ?? config.get(ConfigOptions.UPPERCASE_FIRST_CHARACTER);
-
     // Construct the final commit message
     const messageToSend = `${emoji} ${
-      shouldUppercase
+      config.get(ConfigOptions.CAPITALIZE_FIRST_LETTER)
         ? message.charAt(0).toUpperCase() + message.slice(1)
         : message
     }`;

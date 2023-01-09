@@ -12,14 +12,10 @@ const program = new Command();
     .version(packageJson.version)
     .description('A gitmoji client for using emojis on commit messages.')
     .option('-c, --commit', 'Interactively commit using the prompts')
-    .option(
-      '--no-uppercase',
-      'Disable automatic upper casing of the first letter',
-    )
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .action(async () => {
       if (program.commit) {
-        await commitHandler.commit(program.uppercase, program.verify);
+        await commitHandler.commit(program.verify);
       }
 
       // Display usage when no command or option passed
@@ -31,13 +27,9 @@ const program = new Command();
   program
     .command('commit')
     .description('Interactively commit using the prompts')
-    .option(
-      '--no-uppercase',
-      'Disable automatic upper casing of the first letter',
-    )
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .action(async () => {
-      await commitHandler.commit(program.uppercase, program.verify);
+      await commitHandler.commit(program.verify);
     });
 
   const config = new Command('config').description(

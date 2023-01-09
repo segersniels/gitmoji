@@ -6,7 +6,7 @@ import ConfigOptions from 'enums/ConfigOptions';
 type Config = Record<ConfigOptions, number | boolean>;
 
 export const defaultConfig: Config = {
-  [ConfigOptions.UPPERCASE_FIRST_CHARACTER]: false,
+  [ConfigOptions.CAPITALIZE_FIRST_LETTER]: true,
 };
 
 export default class {

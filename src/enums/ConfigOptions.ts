@@ -1,5 +1,5 @@
 enum ConfigOptions {
-  UPPERCASE_FIRST_CHARACTER = 'uppercase-first-character',
+  CAPITALIZE_FIRST_LETTER = 'capitalize-first-letter',
 }
 
 export default ConfigOptions;
