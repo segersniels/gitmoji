@@ -21,9 +21,7 @@ const fetchEmojis = async () => {
     );
 
     if (!response.ok) {
-      return {
-        gitmojis: [],
-      };
+      return fallback;
     }
 
     // Parse the response data
