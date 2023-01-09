@@ -1,6 +1,6 @@
 {
   "name": "@segersniels/gitmoji",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "main": "dist/index.js",
   "bin": {
     "gitmoji": "dist/index.js"
