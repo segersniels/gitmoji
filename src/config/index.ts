@@ -5,42 +5,32 @@ import ConfigOptions from 'enums/ConfigOptions';
 
 type Config = Record<ConfigOptions, number | boolean>;
 
-export const defaultConfig: Config = {
+export const defaults: Config = {
   [ConfigOptions.CAPITALIZE_FIRST_LETTER]: true,
 };
 
 export default class {
-  private initialConfig: Config;
-
-  constructor() {
-    this.initialConfig = defaultConfig;
-  }
-
   private get config(): Configstore {
-    return new Configstore(name, this.initialConfig, {
+    const config = new Configstore(name, defaults, {
       configPath: `${homedir()}/.gitmoji/config.json`,
     });
+
+    // Clean up config values no longer in the default config
+    for (const key of Object.keys(config.all as Config)) {
+      if (!defaults[key as ConfigOptions]) {
+        config.delete(key);
+      }
+    }
+
+    return config;
   }
 
   public get(key: ConfigOptions): boolean {
-    // Get the value from the config
-    const value = this.config.get(key);
-
-    if (typeof value === 'undefined') {
-      console.error(`Unable to retrieve ${key} from the config`);
-      process.exit(1);
-    }
-
-    return value;
+    return this.config.get(key);
   }
 
   public set(key: ConfigOptions, value: boolean) {
-    if (typeof (defaultConfig as any)[key] === 'undefined') {
-      console.error(`Invalid config '${key}' detected`);
-      process.exit(1);
-    }
-
-    this.config.set(key as string, value);
+    this.config.set(key, value);
   }
 
   public list(): Config {
