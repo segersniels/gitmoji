@@ -12,16 +12,18 @@ const program = new Command();
     .version(packageJson.version)
     .description('A gitmoji client for using emojis on commit messages.')
     .option('-c, --commit', 'Interactively commit using the prompts')
+    .option('-l, --list', 'List all the available gitmojis')
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .action(async () => {
+      // Handle individual option handlers
       if (program.commit) {
-        await commitHandler.commit(program.verify);
+        return await commitHandler.commit(program.verify);
+      } else if (program.list) {
+        return await commitHandler.list();
       }
 
-      // Display usage when no command or option passed
-      if (program.args.length === 0 && !program.commit) {
-        program.help();
-      }
+      // Show usage as last resort
+      return program.help();
     });
 
   program

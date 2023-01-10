@@ -7,6 +7,18 @@ import ConfigOptions from 'enums/ConfigOptions';
 const config = new Config();
 
 export default {
+  list: async () => {
+    const { gitmojis } = await getEmojis();
+
+    console.log(
+      gitmojis
+        .map(
+          gitmoji =>
+            `${gitmoji.emoji} - ${gitmoji.code} - ${gitmoji.description}`,
+        )
+        .join('\n'),
+    );
+  },
   commit: async (verify = true) => {
     const { gitmojis } = await getEmojis();
     let emoji: string, message: string;
