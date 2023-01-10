@@ -16,13 +16,14 @@ Usage: gitmoji [options] [command]
 A gitmoji client for using emojis on commit messages.
 
 Options:
-  -V, --version  output the version number
-  -c, --commit   Interactively commit using the prompts
-  -h, --help     display help for command
+  -V, --version     output the version number
+  -c, --commit      Interactively commit using the prompts
+  --no-verify       Bypass pre-commit and commit-msg hooks
+  -h, --help        display help for command
 
 Commands:
-  commit         Interactively commit using the prompts
-  config         Configure general gitmoji behaviour
+  commit [options]  Interactively commit using the prompts
+  config            Configure general gitmoji behaviour
 ```
 
 ### Config
@@ -46,10 +47,10 @@ Commands:
 
 #### Examples
 
-To enable automatic uppercasing of the first character of your commit message:
+To disable automatic capitalization of the first character of your commit message:
 
 ```
-$ gitmoji config enable
-? Choose an option to enable ›
-❯ uppercase-first-character
+$ gitmoji config disable
+? Choose an option to disable ›
+❯   capitalize-first-letter
 ```
