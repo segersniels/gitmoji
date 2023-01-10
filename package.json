@@ -11,7 +11,8 @@
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "check:typescript": "tsc --noEmit --skipLibCheck --project .",
     "publish:beta": "yarn publish --tag beta",
-    "publish:master": "yarn publish"
+    "publish:master": "yarn publish",
+    "sync": "make sync "
   },
   "repository": {
     "type": "git",
