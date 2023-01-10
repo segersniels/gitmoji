@@ -30,7 +30,7 @@ export default {
           name: 'emoji',
           message: 'Choose a gitmoji',
           choices: gitmojis.map(gitmoji => ({
-            title: `${gitmoji.emoji}  - ${gitmoji.description}`,
+            title: `${gitmoji.emoji} - ${gitmoji.description}`,
             value: gitmoji.code,
           })),
           suggest: (input, choices) => {
