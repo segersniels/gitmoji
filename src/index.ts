@@ -37,6 +37,7 @@ const program = new Command();
   const config = new Command('config').description(
     'Configure general gitmoji behaviour',
   );
+
   config
     .command('enable')
     .description('Enable behaviour')
@@ -50,6 +51,7 @@ const program = new Command();
     .aliases(['ls'])
     .description('View the current config')
     .action(configHandler.list);
+
   program.addCommand(config);
 
   await program.parseAsync(process.argv);
