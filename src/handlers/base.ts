@@ -1,10 +1,8 @@
 import prompts from 'prompts';
 import { spawnSync } from 'child_process';
-import { getEmojis } from 'emoji';
-import Config from 'config';
+import { getEmojis, updateListFromRemote } from 'helpers/Emoji';
+import Config from 'helpers/Config';
 import ConfigOptions from 'enums/ConfigOptions';
-
-const config = new Config();
 
 export default {
   list: async () => {
@@ -19,9 +17,19 @@ export default {
         .join('\n'),
     );
   },
+  update: async () => {
+    try {
+      await updateListFromRemote();
+    } catch (err) {
+      return console.error(
+        'Failed to update, notify the author by creating an issue at: https://github.com/segersniels/gitmoji/issues',
+      );
+    }
+  },
   commit: async (verify = true) => {
-    const { gitmojis } = await getEmojis();
     let emoji: string, message: string;
+    const config = new Config();
+    const { gitmojis } = await getEmojis();
 
     do {
       const response: { emoji: string } = await prompts(

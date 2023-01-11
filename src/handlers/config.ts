@@ -1,4 +1,4 @@
-import Config from 'config';
+import Config from 'helpers/Config';
 import prompts from 'prompts';
 import ConfigOptions from 'enums/ConfigOptions';
 

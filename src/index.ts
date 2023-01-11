@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import packageJson from 'package';
-import commitHandler from 'handlers/commit';
-import configHandler from 'handlers/config';
+import handlers from 'handlers';
 
 const program = new Command();
 
@@ -17,9 +16,9 @@ const program = new Command();
     .action(async () => {
       // Handle individual option handlers
       if (program.commit) {
-        return await commitHandler.commit(program.verify);
+        return await handlers.base.commit(program.verify);
       } else if (program.list) {
-        return await commitHandler.list();
+        return await handlers.base.list();
       }
 
       // Show usage as last resort
@@ -31,7 +30,7 @@ const program = new Command();
     .description('Interactively commit using the prompts')
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .action(async () => {
-      await commitHandler.commit(program.verify);
+      await handlers.base.commit(program.verify);
     });
 
   const config = new Command('config').description(
@@ -41,16 +40,16 @@ const program = new Command();
   config
     .command('enable')
     .description('Enable behaviour')
-    .action(configHandler.enable);
+    .action(handlers.config.enable);
   config
     .command('disable')
     .description('Disable behaviour')
-    .action(configHandler.disable);
+    .action(handlers.config.disable);
   config
     .command('list')
     .aliases(['ls'])
     .description('View the current config')
-    .action(configHandler.list);
+    .action(handlers.config.list);
 
   program.addCommand(config);
 
