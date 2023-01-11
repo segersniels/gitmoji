@@ -48,7 +48,7 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.1",
     "gitmoji-changelog": "^2.3.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "pkg": "^4.4.8",
     "prettier": "^1.19.1",
     "prompts": "^2.4.2",
