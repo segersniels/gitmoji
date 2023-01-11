@@ -12,7 +12,8 @@
     "check:typescript": "tsc --noEmit --skipLibCheck --project .",
     "publish:beta": "yarn publish --tag beta",
     "publish:master": "yarn publish",
-    "sync": "make sync "
+    "sync": "make sync",
+    "generate:changelog": "./src/scripts/generate-tags.sh && gitmoji-changelog"
   },
   "repository": {
     "type": "git",
