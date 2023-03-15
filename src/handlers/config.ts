@@ -11,11 +11,13 @@ enum SubCommand {
 
 const configure = async (type: SubCommand) => {
   const global = config.list();
-  const keys = Object.keys(global).filter(key =>
-    type === SubCommand.ENABLE
-      ? !global[key as ConfigOptions]
-      : global[key as ConfigOptions],
-  );
+  const keys = Object.entries(global)
+    .filter(([key, value]) =>
+      typeof value === 'boolean' && type === SubCommand.ENABLE
+        ? !global[key as ConfigOptions]
+        : global[key as ConfigOptions],
+    )
+    .map(([key]) => key);
 
   if (!keys || !keys.length) {
     process.exit(0);
