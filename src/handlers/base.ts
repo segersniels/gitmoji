@@ -37,9 +37,11 @@ export default {
         args.push('--no-verify');
       }
 
-      return spawnSync('git', args, {
+      spawnSync('git', args, {
         stdio: 'inherit',
       });
+
+      return;
     }
 
     const { gitmojis } = await getEmojis();
