@@ -26,11 +26,23 @@ export default {
       );
     }
   },
-  commit: async (verify = true) => {
+  commit: async (verify = true, previous = false) => {
     let emoji: string, message: string;
     const config = new Config();
-    const { gitmojis } = await getEmojis();
 
+    const lastUsedMessage = config.get(ConfigOptions.LastUsedMessage);
+    if (previous && !!lastUsedMessage) {
+      const args = ['commit', '-m', `${lastUsedMessage}`];
+      if (!verify) {
+        args.push('--no-verify');
+      }
+
+      spawnSync('git', args, {
+        stdio: 'inherit',
+      });
+    }
+
+    const { gitmojis } = await getEmojis();
     do {
       const response: { emoji: string } = await prompts(
         {
@@ -81,6 +93,10 @@ export default {
         ? message.charAt(0).toUpperCase() + message.slice(1)
         : message
     }`;
+
+    if (config.get(ConfigOptions.TrackLastUsedMessage)) {
+      config.set(ConfigOptions.LastUsedMessage, messageToSend);
+    }
 
     // Construct arguments
     const args = ['commit', '-m', `${messageToSend}`];

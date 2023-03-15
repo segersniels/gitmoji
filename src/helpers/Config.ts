@@ -3,10 +3,16 @@ import { homedir } from 'os';
 import Configstore from 'configstore';
 import ConfigOptions from 'enums/ConfigOptions';
 
-type Config = Record<ConfigOptions, number | boolean>;
+interface Config {
+  [ConfigOptions.CapitalizeFirstLetter]: boolean;
+  [ConfigOptions.TrackLastUsedMessage]: boolean;
+  [ConfigOptions.LastUsedMessage]: string | null;
+}
 
 export const defaults: Config = {
   [ConfigOptions.CapitalizeFirstLetter]: true,
+  [ConfigOptions.TrackLastUsedMessage]: false,
+  [ConfigOptions.LastUsedMessage]: null,
 };
 
 export default class {
@@ -25,11 +31,11 @@ export default class {
     return config;
   }
 
-  public get(key: ConfigOptions): boolean {
+  public get<K extends keyof Config>(key: K): Config[K] {
     return this.config.get(key);
   }
 
-  public set(key: ConfigOptions, value: boolean) {
+  public set<K extends keyof Config>(key: K, value: Config[K]) {
     this.config.set(key, value);
   }
 

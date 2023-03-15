@@ -14,10 +14,11 @@ const program = new Command();
     .option('-l, --list', 'List all the available gitmojis')
     .option('-u, --update', 'Sync emoji list with the repo')
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
+    .option('-p, --previous', 'Commit using the last used commit message')
     .action(async () => {
       // Handle individual option handlers
       if (program.commit) {
-        return await handlers.base.commit(program.verify);
+        return await handlers.base.commit(program.verify, program.previous);
       } else if (program.list) {
         return await handlers.base.list();
       } else if (program.update) {
@@ -32,8 +33,9 @@ const program = new Command();
     .command('commit')
     .description('Interactively commit using the prompts')
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
+    .option('-p, --previous', 'Commit using the last used commit message')
     .action(async () => {
-      await handlers.base.commit(program.verify);
+      await handlers.base.commit(program.verify, program.previous);
     });
 
   const config = new Command('config').description(
