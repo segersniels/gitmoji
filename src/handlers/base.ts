@@ -77,7 +77,7 @@ export default {
 
     // Construct the final commit message
     const messageToSend = `${emoji} ${
-      config.get(ConfigOptions.CAPITALIZE_FIRST_LETTER)
+      config.get(ConfigOptions.CapitalizeFirstLetter)
         ? message.charAt(0).toUpperCase() + message.slice(1)
         : message
     }`;
