@@ -23,7 +23,7 @@ export default class {
 
     // Clean up config values no longer in the default config
     for (const key of Object.keys(config.all as Config)) {
-      if (!defaults[key as ConfigOptions]) {
+      if (typeof defaults[key as ConfigOptions] === 'undefined') {
         config.delete(key);
       }
     }
