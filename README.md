@@ -18,7 +18,10 @@ A gitmoji client for using emojis on commit messages.
 Options:
   -V, --version     output the version number
   -c, --commit      Interactively commit using the prompts
+  -l, --list        List all the available gitmojis
+  -u, --update      Sync emoji list with the repo
   --no-verify       Bypass pre-commit and commit-msg hooks
+  -p, --previous    Commit using the last used commit message
   -h, --help        display help for command
 
 Commands:
