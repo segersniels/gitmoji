@@ -37,7 +37,7 @@ export default {
         args.push('--no-verify');
       }
 
-      spawnSync('git', args, {
+      return spawnSync('git', args, {
         stdio: 'inherit',
       });
     }
