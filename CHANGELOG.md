@@ -1,15 +1,28 @@
 # Changelog
 
-<a name="next"></a>
-## next
+<a name="1.10.0"></a>
+## 1.10.0 (2023-03-15)
 
 ### Added
 
+- ✨ Introduce previous commit message commit [[374d55c](https://github.com/segersniels/gitmoji/commit/374d55c5e4e7f892d8eef7f92c3a3da72cb78b70)]
 - ➕ Add gitmoji-changelog [[655769c](https://github.com/segersniels/gitmoji/commit/655769c1b221bec6902e5c4199e7d0fa131e14b3)]
 
 ### Changed
 
+- 🎨 Use pascal casing for enums [[5cb2093](https://github.com/segersniels/gitmoji/commit/5cb20931a0db2c0dd89db3a2c109ca589f5f6292)]
 - ⬆️ Bump prompts@2.4.2 [[35b65dd](https://github.com/segersniels/gitmoji/commit/35b65dd67902466d1839074d68f9ff604c78bb0f)]
+
+### Fixed
+
+- 🐛 Don&#x27;t return spawn output [[d408b67](https://github.com/segersniels/gitmoji/commit/d408b67dd8f7744285290dba3418584245a8a8bb)]
+- 🚑 Make sure to early exit... [[08706d5](https://github.com/segersniels/gitmoji/commit/08706d55c2b56e6f8d3538be281a57e30cc69894)]
+- 🐛 Make sure we don&#x27;t delete false or null values [[aef50f9](https://github.com/segersniels/gitmoji/commit/aef50f9ad35276c6ee168e2656f107ce24972683)]
+- 🐛 Make sure we only allow configuring config values that are booleans [[d39f11d](https://github.com/segersniels/gitmoji/commit/d39f11d1b86883de268418ff15132ef38005eeea)]
+
+### Miscellaneous
+
+- 📝 Generate changelog [[b8fda39](https://github.com/segersniels/gitmoji/commit/b8fda396ad5021cac241c80545704acc9f0bfb4f)]
 
 
 <a name="1.9.0"></a>
