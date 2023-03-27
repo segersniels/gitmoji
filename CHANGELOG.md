@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.11.2"></a>
+## 1.11.2 (2023-03-27)
+
+### Changed
+
+- 🚸 Nudge it in the right direction [[b1b7435](https://github.com/segersniels/gitmoji/commit/b1b743594629df31449e7c1e3817e0e7196cbe90)]
+
+### Miscellaneous
+
+- 📝 Add basic explanation to generate messages [[9104421](https://github.com/segersniels/gitmoji/commit/910442149e38d3645ee62b4a89078f17fb77ef1e)]
+
+
 <a name="1.11.1"></a>
 ## 1.11.1 (2023-03-27)
 
