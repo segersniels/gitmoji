@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.11.3"></a>
+## 1.11.3 (2023-03-27)
+
+### Fixed
+
+- 🐛 Remove trailing periods [[dcce947](https://github.com/segersniels/gitmoji/commit/dcce94745c6f347cbe68699cd2a4f9c87655a96a)]
+
+
 <a name="1.11.2"></a>
 ## 1.11.2 (2023-03-27)
 
