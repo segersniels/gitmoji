@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.11.5"></a>
+## 1.11.5 (2023-03-27)
+
+### Added
+
+- ✨ Add ability to replace emojis with codes and remove trailing punctuation in commit message parsing [[feaa932](https://github.com/segersniels/gitmoji/commit/feaa9327f764202c856638ccb38092d2d9f92e24)]
+
+
 <a name="1.11.4"></a>
 ## 1.11.4 (2023-03-27)
 
