@@ -18,7 +18,10 @@ const program = new Command();
     .action(async () => {
       // Handle individual option handlers
       if (program.commit) {
-        return await handlers.base.commit(program.verify, program.previous);
+        return await handlers.commit.commit({
+          verify: program.verify,
+          previous: program.previous,
+        });
       } else if (program.list) {
         return await handlers.base.list();
       } else if (program.update) {
@@ -34,8 +37,16 @@ const program = new Command();
     .description('Interactively commit using the prompts')
     .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
     .option('-p, --previous', 'Commit using the last used commit message')
-    .action(async () => {
-      await handlers.base.commit(program.verify, program.previous);
+    .option(
+      '--generate',
+      'Generate a commit message from your current staged changes',
+    )
+    .action(async options => {
+      await handlers.commit.commit({
+        verify: options.verify,
+        previous: options.previous,
+        generate: options.generate,
+      });
     });
 
   const config = new Command('config').description(
