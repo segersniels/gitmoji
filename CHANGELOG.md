@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.11.4"></a>
+## 1.11.4 (2023-03-27)
+
+### Changed
+
+- 🚸 Drop reference to language specific testing [[8cd3754](https://github.com/segersniels/gitmoji/commit/8cd375438cccf70205c76bbe776963d4981cab54)]
+
+
 <a name="1.11.3"></a>
 ## 1.11.3 (2023-03-27)
 
