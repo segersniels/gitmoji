@@ -12,26 +12,58 @@ interface Options {
   generate?: boolean;
 }
 
-async function generate() {
+async function generate(verify?: boolean) {
   if (!process.env.OPENAI_API_KEY) {
     console.error(`Unable to locate OPENAI_API_KEY in environment`);
     process.exit();
   }
 
   const diff = execSync('git diff --cached').toString();
+  if (!diff.trim().length) {
+    return console.error(`No changes to commit`);
+  }
+
   const prompt = await generatePrompt(diff);
 
-  const response = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    messages: [{ role: 'user', content: prompt }],
-    temperature: 0.7,
-    max_tokens: 64,
-    top_p: 1.0,
-    frequency_penalty: 0.0,
-    presence_penalty: 0.0,
-  });
+  let message;
+  while (true) {
+    const response = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+      max_tokens: 64,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    });
 
-  return response.data.choices[0].message?.content;
+    const { confirmation }: { confirmation: boolean } = await prompts(
+      {
+        type: 'confirm',
+        name: 'confirmation',
+        message: response.data.choices[0].message?.content,
+        initial: true,
+      },
+      {
+        onCancel: () => process.exit(),
+      },
+    );
+
+    if (!!confirmation) {
+      message = response.data.choices[0].message?.content;
+      break;
+    }
+  }
+
+  // Construct arguments
+  const args = ['commit', '-m', `${message}`];
+  if (verify === false) {
+    args.push('--no-verify');
+  }
+
+  spawnSync('git', args, {
+    stdio: 'inherit',
+  });
 }
 
 export default {
@@ -42,37 +74,7 @@ export default {
     const config = new Config();
 
     if (options.generate) {
-      let message;
-      while (true) {
-        message = await generate();
-        const response: { value: boolean } = await prompts(
-          {
-            type: 'confirm',
-            name: 'value',
-            message,
-            initial: true,
-          },
-          {
-            onCancel: () => process.exit(),
-          },
-        );
-
-        if (!!response.value) {
-          break;
-        }
-      }
-
-      // Construct arguments
-      const args = ['commit', '-m', `${message}`];
-      if (!verify) {
-        args.push('--no-verify');
-      }
-
-      spawnSync('git', args, {
-        stdio: 'inherit',
-      });
-
-      return;
+      return await generate();
     }
 
     const lastUsedMessage = config.get(ConfigOptions.LastUsedMessage);
