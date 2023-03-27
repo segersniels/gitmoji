@@ -50,6 +50,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "gitmoji-changelog": "^2.3.0",
     "moment": "^2.29.1",
+    "openai": "^3.2.1",
     "pkg": "^4.4.8",
     "prettier": "^1.19.1",
     "prompts": "^2.4.2",
