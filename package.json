@@ -6,7 +6,8 @@
     "gitmoji": "dist/index.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --target node12 --minify --keep-names --out-dir dist",
+    "build": "tsup src/index.ts --clean --minify --keep-names --out-dir dist",
+    "build:watch": "tsup src/index.ts --clean --minify --keep-names --out-dir dist --watch",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "check:typescript": "tsc --noEmit --skipLibCheck --project .",
