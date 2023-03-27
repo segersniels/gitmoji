@@ -33,7 +33,7 @@ export async function generatePrompt(diff: string) {
     When reviewing a diff, pay attention to the changed filenames and use this information to extract the context of the changes.
     This will help you create a more relevant and informative commit message.
     Here are some examples of how you can interpret some changed filenames:
-      - Files ending with .test.js or .spec.js are usually related to tests.
+      - Files or filepaths that reference testing are usually related to tests.
       - Files ending with .md are usually related to documentation.
       - Config file adjustments are usually related to configuration changes.
 
