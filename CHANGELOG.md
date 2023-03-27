@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.11.1"></a>
+## 1.11.1 (2023-03-27)
+
+### Changed
+
+- 🎨 Remove clutter from handler [[64446f6](https://github.com/segersniels/gitmoji/commit/64446f66d700648477d8ae10ba071ba333ab0375)]
+
+### Miscellaneous
+
+- 📝 Update CHANGELOG [[9ac020b](https://github.com/segersniels/gitmoji/commit/9ac020b94911b5b5b760b4f74563c4f2a70c7485)]
+
+
 <a name="1.11.0"></a>
 ## 1.11.0 (2023-03-27)
 
