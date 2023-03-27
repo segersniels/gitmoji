@@ -32,6 +32,11 @@ export async function generatePrompt(diff: string) {
 
     When reviewing a diff, pay attention to the changed filenames and use this information to extract the context of the changes.
     This will help you create a more relevant and informative commit message.
+    Here are some examples of how you can interpret some changed filenames:
+      - Files ending with .test.js or .spec.js are usually related to tests.
+      - Files ending with .md are usually related to documentation.
+      - Config file adjustments are usually related to configuration changes.
+
     If the user provides additional context, use it to further refine your message. But remember, the message should still be clear and concise.
     Finally, always start your gitmoji commit message with a gitmoji followed by the commit message starting with a capital letter.
 
