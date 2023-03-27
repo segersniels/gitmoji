@@ -1,5 +1,23 @@
 # Changelog
 
+<a name="1.11.0"></a>
+## 1.11.0 (2023-03-27)
+
+### Added
+
+- ✨ Add ability to generate commit message from staged changes [[12297f6](https://github.com/segersniels/gitmoji/commit/12297f63dc6618f3e7c20ce2f487fc6a9d32dd83)]
+- ➕ Add openai [[2156d96](https://github.com/segersniels/gitmoji/commit/2156d9666d2c2941e8a6680cd801f388dc3848bf)]
+
+### Changed
+
+- 🔧 Add build watcher [[5f88451](https://github.com/segersniels/gitmoji/commit/5f88451ab951ad50c9c521acda5648580cedacdf)]
+
+### Miscellaneous
+
+- 📝 Update usage [[5ff606f](https://github.com/segersniels/gitmoji/commit/5ff606ff1be4a72daaa80dff2c23c81ea970e3fb)]
+- 📝 Update changelog [[241ee3d](https://github.com/segersniels/gitmoji/commit/241ee3d6b94d135b0570b25cd5a01fa39c55fc95)]
+
+
 <a name="1.10.0"></a>
 ## 1.10.0 (2023-03-15)
 
