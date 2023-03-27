@@ -50,7 +50,7 @@ async function generate(verify?: boolean) {
     );
 
     if (!!confirmation) {
-      message = response.data.choices[0].message?.content;
+      message = response.data.choices[0].message?.content.replace(/\.$/g, '');
       break;
     }
   }
