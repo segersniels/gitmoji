@@ -5,11 +5,28 @@ import { getEmojis } from 'helpers/Emoji';
 import Config from 'helpers/Config';
 import ConfigOptions from 'enums/ConfigOptions';
 import { openai, generatePrompt } from 'helpers/OpenAI';
+import Gitmoji from 'types/Gitmoji';
 
 interface Options {
   verify?: boolean;
   previous?: boolean;
   generate?: boolean;
+}
+/**
+ * Do some additional post processing on the received answer
+ */
+function parseMessage(message: string | undefined, gitmojis: Gitmoji[]) {
+  if (!message) {
+    return;
+  }
+
+  // Replace emojis with codes
+  for (const gitmoji of gitmojis) {
+    message = message.replace(gitmoji.emoji, gitmoji.code);
+  }
+
+  // Remove trailing punctuation
+  return message.replace(/\.$/g, '');
 }
 
 async function generate(verify?: boolean) {
@@ -23,7 +40,8 @@ async function generate(verify?: boolean) {
     return console.error(`No changes to commit`);
   }
 
-  const prompt = await generatePrompt(diff);
+  const { gitmojis } = await getEmojis();
+  const prompt = await generatePrompt(diff, gitmojis);
 
   let message;
   while (true) {
@@ -37,11 +55,12 @@ async function generate(verify?: boolean) {
       presence_penalty: 0.0,
     });
 
+    message = parseMessage(response.data.choices[0].message?.content, gitmojis);
     const { confirmation }: { confirmation: boolean } = await prompts(
       {
         type: 'confirm',
         name: 'confirmation',
-        message: response.data.choices[0].message?.content,
+        message,
         initial: true,
       },
       {
@@ -50,7 +69,6 @@ async function generate(verify?: boolean) {
     );
 
     if (!!confirmation) {
-      message = response.data.choices[0].message?.content.replace(/\.$/g, '');
       break;
     }
   }

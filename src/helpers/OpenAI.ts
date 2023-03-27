@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { getEmojis } from './Emoji';
+import Gitmoji from 'types/Gitmoji';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -7,8 +7,7 @@ const configuration = new Configuration({
 
 export const openai = new OpenAIApi(configuration);
 
-export async function generatePrompt(diff: string) {
-  const { gitmojis } = await getEmojis();
+export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
   const list = gitmojis.map(
     gitmoji => `${gitmoji.code} - ${gitmoji.description}`,
   );
