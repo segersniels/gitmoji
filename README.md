@@ -29,7 +29,17 @@ Commands:
   config            Configure general gitmoji behaviour
 ```
 
-### Config
+### AI generated message
+
+You can generate commit messages based on your current staged changes by passing the `--generate` flag to the commit command.
+
+```
+gitmoji commit --generate
+```
+
+> Keep in mind that you will need to set the `OPENAI_API_KEY` environment variable which you can obtain through the OpenAI website.
+
+## Config
 
 Configure global `gitmoji` settings through an easy prompt selection.
 
@@ -48,7 +58,7 @@ Commands:
   help [command]  display help for command
 ```
 
-#### Examples
+### Examples
 
 To disable automatic capitalization of the first character of your commit message:
 
