@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.11.6"></a>
+## 1.11.6 (2023-03-28)
+
+### Changed
+
+- ♻️ Rewrite openai prompt [[a73bc15](https://github.com/segersniels/gitmoji/commit/a73bc15a85ce6db525db9bb947dbaef9e6ef2f6c)]
+
+
 <a name="1.11.5"></a>
 ## 1.11.5 (2023-03-27)
 
