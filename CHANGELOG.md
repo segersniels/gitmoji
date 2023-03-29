@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.11.7"></a>
+## 1.11.7 (2023-03-29)
+
+### Changed
+
+- 🚸 Improve prompt for better experience [[b50daf0](https://github.com/segersniels/gitmoji/commit/b50daf07d93f3fd01e3ad016e239b109a9128b96)]
+
+
 <a name="1.11.6"></a>
 ## 1.11.6 (2023-03-28)
 
