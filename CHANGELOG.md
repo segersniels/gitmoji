@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.11.8"></a>
+## 1.11.8 (2023-03-29)
+
+### Changed
+
+- 🚸 Improve prompt [[e7b667a](https://github.com/segersniels/gitmoji/commit/e7b667a298c3be816c82bd5298b3ac264ac2be91)]
+
+### Miscellaneous
+
+- 📝 Update changelog [[5421570](https://github.com/segersniels/gitmoji/commit/54215703dafd8c2775df9cffa3e0be363c956e6c)]
+
+
 <a name="1.11.7"></a>
 ## 1.11.7 (2023-03-29)
 
