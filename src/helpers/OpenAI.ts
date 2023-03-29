@@ -13,17 +13,11 @@ export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
   );
 
   return `
-    Refer to the provided git diff or code snippet and provide a suitable gitmoji commit message.
-
-    Here is a list of gitmoji codes and their descriptions:
-    ${list}
+    Refer to the provided git diff or code snippet and provide a suitable commit message.
 
     When reviewing the diff or code, focus on identifying the main purpose of the changes.
     Are they fixing a bug, adding a new feature, improving performance or readability, or something else?
-    Use this information to craft a concise and meaningful gitmoji commit message that clearly indicates what the provided snippet does.
-
-    Use simple language and avoid technical jargon.
-    A good commit message should provide enough information to understand the changes without being too verbose.
+    Use this information to craft a concise and detailed gitmoji commit message that clearly describes what the provided code or diff does.
 
     When reviewing a diff, pay attention to the changed filenames and extract the context of the changes.
     This will help you create a more relevant and informative commit message.
@@ -32,21 +26,26 @@ export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
       - Markdown files are usually related to documentation.
       - Config file adjustments are usually related to configuration changes.
 
-    Don't do this:
-      - :bug: Fix issue with shopping cart checkout process
-      - :zap: Improve performance of search functionality
-      - :lipstick: Refactor styling for product details page
-      - :memo: Update documentation for API endpoints
+    Here is a list of gitmoji codes and their descriptions of what they mean when they are used: """
+    ${list}
+    """
 
-    Do this:
+    Try to match the generated description to a fitting emoji from the provided list above.
+    Always start your commit message with a gitmoji followed by the message starting with a capital letter.
+    Limit yourself to one sentence but don't end it in a punctuation mark.
+    Never mention file names or function names in the message.
+
+    Don't do this:
       - :bug: Fix issue in calculateTotalPrice function
       - :zap: Improve performance of calculateTopProducts function
       - :lipstick: Refactor styling for calculateCartTotal function
       - :memo: Update documentation for getProductById function
 
-    Limit yourself to one sentence but don't end it in a punctuation mark.
-    Always start your commit message with a gitmoji followed by the message starting with a capital letter.
-    Never mention file names or function names in the message.
+    Do this:
+      - :bug: Fix issue with shopping cart checkout process
+      - :zap: Improve performance of search functionality
+      - :lipstick: Refactor styling for product details page
+      - :memo: Update documentation for API endpoints
 
     Here is the provided git diff or code snippet: """
     ${diff}
