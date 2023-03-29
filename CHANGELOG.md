@@ -1,10 +1,11 @@
 # Changelog
 
-<a name="1.11.8"></a>
-## 1.11.8 (2023-03-29)
+<a name="1.11.9"></a>
+## 1.11.9 (2023-03-29)
 
 ### Changed
 
+- 🚸 Improve prompt experience [[0ccaa06](https://github.com/segersniels/gitmoji/commit/0ccaa06a02fea28b5fe8fb3a6109ff1c40a41a3d)]
 - 🚸 Improve prompt [[e7b667a](https://github.com/segersniels/gitmoji/commit/e7b667a298c3be816c82bd5298b3ac264ac2be91)]
 
 ### Miscellaneous
