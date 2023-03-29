@@ -30,9 +30,9 @@ export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
     ${list}
     """
 
-    Try to match the generated description to a fitting emoji from the provided list above.
+    Try to match the generated message to a fitting emoji using its description from the provided list above.
     Always start your commit message with a gitmoji followed by the message starting with a capital letter.
-    Limit yourself to one sentence but don't end it in a punctuation mark.
+    Limit yourself to one sentence but don't end it in a punctuation mark and try to stay within 80 characters.
     Never mention file names or function names in the message.
 
     Don't do this:
