@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.12.1"></a>
+## 1.12.1 (2023-03-30)
+
+### Changed
+
+- ♻️ Refactor commit generation function to prompt for additional context [[6947673](https://github.com/segersniels/gitmoji/commit/6947673c5a984848c32cc5dab7c078a9aee9b569)]
+
+
 <a name="1.12.0"></a>
 ## 1.12.0 (2023-03-30)
 
