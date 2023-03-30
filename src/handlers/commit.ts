@@ -10,10 +10,10 @@ interface Options {
   verify?: boolean;
   previous?: boolean;
   generate?: boolean;
-  context?: string;
+  context?: boolean;
 }
 
-async function generate(verify?: boolean, context?: string) {
+async function generate(verify?: boolean, promptForContext?: boolean) {
   if (!process.env.OPENAI_API_KEY) {
     console.error(`Unable to locate OPENAI_API_KEY in environment`);
     process.exit();
@@ -22,6 +22,20 @@ async function generate(verify?: boolean, context?: string) {
   const diff = execSync('git diff --cached').toString();
   if (!diff.trim().length) {
     return console.error(`No changes to commit`);
+  }
+
+  let context: string | undefined;
+  if (promptForContext) {
+    ({ context } = await prompts(
+      {
+        type: 'text',
+        name: 'context',
+        message: 'Provide additional context for the commit message',
+      },
+      {
+        onCancel: () => process.exit(),
+      },
+    ));
   }
 
   const { gitmojis } = await getEmojis();
