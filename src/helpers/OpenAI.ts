@@ -67,7 +67,6 @@ export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
 
     Try to match the generated message to a fitting emoji using its description from the provided list above.
     So go look in the descriptions and find the one that best matches the description.
-    So a change related to a refactor would best match with ":recycle: - Refactor code." from the list and would choose :recycle: as the gitmoji.
 
     Always start your commit message with a gitmoji followed by the message starting with a capital letter.
     Never mention filenames or function names in the message.
