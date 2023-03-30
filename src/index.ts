@@ -41,10 +41,7 @@ const program = new Command();
       '--generate',
       'Generate a commit message from your current staged changes',
     )
-    .option(
-      '--context <string>',
-      'Add additional context to commit generation. Eg. --context feature',
-    )
+    .option('--context', 'Add additional context to commit generation')
     .action(async options => {
       if (options.context && !options.generate) {
         return console.error(
