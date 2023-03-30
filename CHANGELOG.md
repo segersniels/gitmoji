@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="1.12.0"></a>
+## 1.12.0 (2023-03-30)
+
+### Added
+
+- ✨ Add ability to provide context to commit message generation [[97d510b](https://github.com/segersniels/gitmoji/commit/97d510b46b13cf3ccaeed125856029b101036426)]
+
+### Changed
+
+- 🎨 Improve readability of commit message generation code [[908a866](https://github.com/segersniels/gitmoji/commit/908a866692f5af87b0a4e99fecfd519ad10e1287)]
+- ⬆️ Bump typescript [[02c5c60](https://github.com/segersniels/gitmoji/commit/02c5c603b32754f06620216f278a6b0098c66186)]
+- 🔧 Increase max tokens [[cdbd508](https://github.com/segersniels/gitmoji/commit/cdbd508bd0e61a1f068bf5609e8d0dcabe5c9da0)]
+
+### Removed
+
+- 🔥 Remove unneeded prompt context [[9d6690d](https://github.com/segersniels/gitmoji/commit/9d6690d1a656ff33b22fcee5b39ee806a6f10112)]
+
+### Fixed
+
+- 🐛 Remove lockfile changes from prompt [[5bb0cae](https://github.com/segersniels/gitmoji/commit/5bb0caef941075e09ce41498a4ee509b2eedd3f0)]
+
+
 <a name="1.11.9"></a>
 ## 1.11.9 (2023-03-29)
 
