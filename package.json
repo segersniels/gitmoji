@@ -56,6 +56,6 @@
     "prompts": "^2.4.2",
     "tsconfig-paths": "^3.9.0",
     "tsup": "^6.5.0",
-    "typescript": "^3.9.5"
+    "typescript": "^5.0.2"
   }
 }
