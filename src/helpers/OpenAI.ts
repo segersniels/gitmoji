@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Configuration, OpenAIApi } from 'openai';
 import Gitmoji from 'types/Gitmoji';
+import prompts from 'prompts';
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
 
 const FILES_TO_IGNORE = [
   'package-lock.json',
@@ -34,13 +42,7 @@ export function removeLockfileChanges(diff: string) {
     .join('\n');
 }
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-export const openai = new OpenAIApi(configuration);
-
-export async function generatePrompt(
+async function generatePrompt(
   diff: string,
   gitmojis: Gitmoji[],
   context?: string,
@@ -102,4 +104,64 @@ export async function generatePrompt(
     ${removeLockfileChanges(diff)}
     """
   `;
+}
+
+/**
+ * Do some additional post processing on the received answer
+ */
+function parseMessage(message: string | undefined, gitmojis: Gitmoji[]) {
+  if (!message) {
+    return;
+  }
+
+  // Replace emojis with codes
+  for (const gitmoji of gitmojis) {
+    message = message.replace(gitmoji.emoji, gitmoji.code);
+  }
+
+  // Force only one sentence if for some reason multiple are returned
+  message = message.split('\n')[0];
+
+  // Remove trailing punctuation
+  return message.replace(/\.$/g, '');
+}
+
+export async function generateMessage(
+  diff: string,
+  gitmojis: Gitmoji[],
+  context?: string,
+) {
+  const prompt = await generatePrompt(diff, gitmojis, context);
+
+  let message;
+  while (true) {
+    const response = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+      max_tokens: 64,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    });
+
+    message = parseMessage(response.data.choices[0].message?.content, gitmojis);
+    const { confirmation }: { confirmation: boolean } = await prompts(
+      {
+        type: 'confirm',
+        name: 'confirmation',
+        message,
+        initial: true,
+      },
+      {
+        onCancel: () => process.exit(),
+      },
+    );
+
+    if (!!confirmation) {
+      break;
+    }
+  }
+
+  return message;
 }

@@ -4,33 +4,13 @@ import { spawnSync, execSync } from 'child_process';
 import { getEmojis } from 'helpers/Emoji';
 import Config from 'helpers/Config';
 import ConfigOptions from 'enums/ConfigOptions';
-import { openai, generatePrompt } from 'helpers/OpenAI';
-import Gitmoji from 'types/Gitmoji';
+import { generateMessage } from 'helpers/OpenAI';
 
 interface Options {
   verify?: boolean;
   previous?: boolean;
   generate?: boolean;
   context?: string;
-}
-/**
- * Do some additional post processing on the received answer
- */
-function parseMessage(message: string | undefined, gitmojis: Gitmoji[]) {
-  if (!message) {
-    return;
-  }
-
-  // Replace emojis with codes
-  for (const gitmoji of gitmojis) {
-    message = message.replace(gitmoji.emoji, gitmoji.code);
-  }
-
-  // Force only one sentence if for some reason multiple are returned
-  message = message.split('\n')[0];
-
-  // Remove trailing punctuation
-  return message.replace(/\.$/g, '');
 }
 
 async function generate(verify?: boolean, context?: string) {
@@ -45,37 +25,7 @@ async function generate(verify?: boolean, context?: string) {
   }
 
   const { gitmojis } = await getEmojis();
-  const prompt = await generatePrompt(diff, gitmojis, context);
-
-  let message;
-  while (true) {
-    const response = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.7,
-      max_tokens: 200,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-    });
-
-    message = parseMessage(response.data.choices[0].message?.content, gitmojis);
-    const { confirmation }: { confirmation: boolean } = await prompts(
-      {
-        type: 'confirm',
-        name: 'confirmation',
-        message,
-        initial: true,
-      },
-      {
-        onCancel: () => process.exit(),
-      },
-    );
-
-    if (!!confirmation) {
-      break;
-    }
-  }
+  const message = await generateMessage(diff, gitmojis, context);
 
   // Construct arguments
   const args = ['commit', '-m', `${message}`];
