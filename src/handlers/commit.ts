@@ -11,6 +11,7 @@ interface Options {
   verify?: boolean;
   previous?: boolean;
   generate?: boolean;
+  context?: string;
 }
 /**
  * Do some additional post processing on the received answer
@@ -25,11 +26,14 @@ function parseMessage(message: string | undefined, gitmojis: Gitmoji[]) {
     message = message.replace(gitmoji.emoji, gitmoji.code);
   }
 
+  // Force only one sentence if for some reason multiple are returned
+  message = message.split('\n')[0];
+
   // Remove trailing punctuation
   return message.replace(/\.$/g, '');
 }
 
-async function generate(verify?: boolean) {
+async function generate(verify?: boolean, context?: string) {
   if (!process.env.OPENAI_API_KEY) {
     console.error(`Unable to locate OPENAI_API_KEY in environment`);
     process.exit();
@@ -41,7 +45,7 @@ async function generate(verify?: boolean) {
   }
 
   const { gitmojis } = await getEmojis();
-  const prompt = await generatePrompt(diff, gitmojis);
+  const prompt = await generatePrompt(diff, gitmojis, context);
 
   let message;
   while (true) {
@@ -92,7 +96,7 @@ export default {
     const config = new Config();
 
     if (options.generate) {
-      return await generate();
+      return await generate(verify, options.context);
     }
 
     const lastUsedMessage = config.get(ConfigOptions.LastUsedMessage);

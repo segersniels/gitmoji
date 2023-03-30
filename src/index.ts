@@ -41,11 +41,22 @@ const program = new Command();
       '--generate',
       'Generate a commit message from your current staged changes',
     )
+    .option(
+      '--context <string>',
+      'Add additional context to commit generation. Eg. --context feature',
+    )
     .action(async options => {
+      if (options.context && !options.generate) {
+        return console.error(
+          'You must provide the --generate flag to provide additional context with the --context flag',
+        );
+      }
+
       await handlers.commit.commit({
         verify: options.verify,
         previous: options.previous,
         generate: options.generate,
+        context: options.context,
       });
     });
 

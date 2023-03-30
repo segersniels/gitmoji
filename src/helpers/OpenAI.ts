@@ -40,7 +40,11 @@ const configuration = new Configuration({
 
 export const openai = new OpenAIApi(configuration);
 
-export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
+export async function generatePrompt(
+  diff: string,
+  gitmojis: Gitmoji[],
+  context?: string,
+) {
   const list = gitmojis.map(
     gitmoji => `${gitmoji.code} - ${gitmoji.description}`,
   );
@@ -82,6 +86,17 @@ export async function generatePrompt(diff: string, gitmojis: Gitmoji[]) {
       - :zap: Improve performance of search functionality
       - :lipstick: Refactor styling for product details page
       - :memo: Update documentation for API endpoints
+
+    ${
+      context
+        ? `
+          Refer to the provided additional context to assist you with choosing a correct gitmoji
+          and constructing a good message: """
+          ${context}
+          """
+        `
+        : ''
+    }
 
     Here is the provided git diff or code snippet: """
     ${removeLockfileChanges(diff)}
