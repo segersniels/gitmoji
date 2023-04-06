@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.12.2"></a>
+## 1.12.2 (2023-04-06)
+
+### Fixed
+
+- 🚑 Apparently when mixing options from parent it sometimes doesn&#x27;t pass them to the command [[3f47eda](https://github.com/segersniels/gitmoji/commit/3f47edad347f9c3ae4050093ee3480c9d065ad3b)]
+
+
 <a name="1.12.1"></a>
 ## 1.12.1 (2023-03-30)
 
