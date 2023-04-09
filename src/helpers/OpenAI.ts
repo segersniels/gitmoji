@@ -2,6 +2,8 @@
 import { Configuration, OpenAIApi } from 'openai';
 import Gitmoji from 'types/Gitmoji';
 import prompts from 'prompts';
+import { Tiktoken } from '@dqbd/tiktoken/lite';
+import model from '@dqbd/tiktoken/encoders/cl100k_base.json';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -21,7 +23,7 @@ const FILES_TO_IGNORE = [
 /**
  * Attempt to remove lockfile changes from the diff
  */
-export function removeLockfileChanges(diff: string) {
+function removeLockfileChanges(diff: string) {
   const result = Array.from(
     diff.matchAll(/diff --git[\s\S]*?(?=diff --git|$)/g),
     match => match[0],
@@ -42,10 +44,53 @@ export function removeLockfileChanges(diff: string) {
     .join('\n');
 }
 
-async function generatePrompt(
+/**
+ * Removes lines from the diff that don't start with a special character
+ */
+function removeExcessiveLinesFromChunk(diff: string) {
+  return diff
+    .split('\n')
+    .filter(line => /^\W/.test(line))
+    .join('\n');
+}
+
+/**
+ * Prepare a diff for use in the prompt by removing stuff like
+ * the lockfile changes and removing some of the whitespace.
+ */
+function prepareDiff(diff: string, minify = false) {
+  diff = removeLockfileChanges(diff);
+
+  if (!minify) {
+    return diff;
+  }
+
+  const chunks = Array.from(
+    diff.matchAll(/diff --git[\s\S]*?(?=diff --git|$)/g),
+    match => match[0],
+  ).map(chunk => chunk.replace(/ {2,}/g, ''));
+
+  return chunks
+    .filter(chunk => {
+      const firstLine = chunk.split('\n')[0];
+
+      for (const file of FILES_TO_IGNORE) {
+        if (firstLine.includes(file)) {
+          return false;
+        }
+      }
+
+      return true;
+    })
+    .map(removeExcessiveLinesFromChunk)
+    .join('\n');
+}
+
+function generatePrompt(
   diff: string,
   gitmojis: Gitmoji[],
   context?: string,
+  minify = false,
 ) {
   const list = gitmojis.map(
     gitmoji => `${gitmoji.code} - ${gitmoji.description}`,
@@ -101,7 +146,7 @@ async function generatePrompt(
     }
 
     Here is the provided git diff or code snippet: """
-    ${removeLockfileChanges(diff)}
+    ${prepareDiff(diff, minify)}
     """
   `;
 }
@@ -131,7 +176,26 @@ export async function generateMessage(
   gitmojis: Gitmoji[],
   context?: string,
 ) {
-  const prompt = await generatePrompt(diff, gitmojis, context);
+  let prompt = generatePrompt(diff, gitmojis, context);
+  const encoding = new Tiktoken(
+    model.bpe_ranks,
+    model.special_tokens,
+    model.pat_str,
+  );
+
+  // Check if exceeding model max token length and minify accordingly
+  if (encoding.encode(prompt).length > 4096) {
+    prompt = generatePrompt(diff, gitmojis, context, true);
+
+    // Check if minified prompt is still too long
+    if (encoding.encode(prompt).length > 4096) {
+      console.error(
+        'The diff is too large, try reducing the number of staged changes.',
+      );
+
+      process.exit();
+    }
+  }
 
   let message;
   while (true) {
@@ -162,6 +226,9 @@ export async function generateMessage(
       break;
     }
   }
+
+  // Free the encoding to prevent memory leaks
+  encoding.free();
 
   return message;
 }
