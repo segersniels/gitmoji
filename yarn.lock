@@ -35,6 +35,11 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@dqbd/tiktoken@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@dqbd/tiktoken/-/tiktoken-1.0.4.tgz#30c61cb5b865e839af88c1014e4ff16f6278e4ce"
+  integrity sha512-C0HrJj2RNlsB3wslfNHGNH8xN7QQMki+y4JkUor/GE+oIfPvH7yVep9l1/2powam8AAH6+gdv5MggA5gsszweg==
+
 "@esbuild/android-arm@0.15.18":
   version "0.15.18"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm/-/android-arm-0.15.18.tgz#266d40b8fdcf87962df8af05b76219bc786b4f80"

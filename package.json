@@ -38,6 +38,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@dqbd/tiktoken": "^1.0.4",
     "@types/configstore": "^4.0.0",
     "@types/prompts": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
