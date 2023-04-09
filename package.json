@@ -6,8 +6,8 @@
     "gitmoji": "dist/index.js"
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --minify --keep-names --out-dir dist",
-    "build:watch": "tsup src/index.ts --clean --minify --keep-names --out-dir dist --watch",
+    "build": "tsup src/index.ts --clean --minify --keep-names --out-dir dist --external @dqbd/tiktoken",
+    "build:watch": "tsup src/index.ts --clean --minify --keep-names --out-dir dist --watch --external @dqbd/tiktoken",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "check:typescript": "tsc --noEmit --skipLibCheck --project .",
@@ -37,8 +37,10 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "dependencies": {
+    "@dqbd/tiktoken": "^1.0.4"
+  },
   "devDependencies": {
-    "@dqbd/tiktoken": "^1.0.4",
     "@types/configstore": "^4.0.0",
     "@types/prompts": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^2.14.0",

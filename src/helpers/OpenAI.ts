@@ -2,8 +2,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 import Gitmoji from 'types/Gitmoji';
 import prompts from 'prompts';
-import { Tiktoken } from '@dqbd/tiktoken/lite';
-import model from '@dqbd/tiktoken/encoders/cl100k_base.json';
+import { encoding_for_model } from '@dqbd/tiktoken';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -176,12 +175,9 @@ export async function generateMessage(
   gitmojis: Gitmoji[],
   context?: string,
 ) {
+  const model = 'gpt-3.5-turbo';
+  const encoding = encoding_for_model(model);
   let prompt = generatePrompt(diff, gitmojis, context);
-  const encoding = new Tiktoken(
-    model.bpe_ranks,
-    model.special_tokens,
-    model.pat_str,
-  );
 
   // Check if exceeding model max token length and minify accordingly
   if (encoding.encode(prompt).length > 4096) {
@@ -200,7 +196,7 @@ export async function generateMessage(
   let message;
   while (true) {
     const response = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
+      model,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.7,
       max_tokens: 64,
