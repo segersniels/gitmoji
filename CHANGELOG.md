@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.12.4"></a>
+## 1.12.4 (2023-04-09)
+
+### Fixed
+
+- 🐛 Remove duplicate parsing [[5a084b6](https://github.com/segersniels/gitmoji/commit/5a084b6f8992ce86624179cb9e18890ca3d8d7ff)]
+
+
 <a name="1.12.3"></a>
 ## 1.12.3 (2023-04-09)
 
