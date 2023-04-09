@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.12.3"></a>
+## 1.12.3 (2023-04-09)
+
+### Added
+
+- ✨ Try to minimze diff if it exceeds prompt length [[117d9e5](https://github.com/segersniels/gitmoji/commit/117d9e5ef5adb459568966e46916258442b8cc01)]
+- ➕ Add @dqbd/tiktoken [[4da1ee7](https://github.com/segersniels/gitmoji/commit/4da1ee736173a4d323dc3ed369b85ff59716d8cc)]
+
+### Fixed
+
+- 🚑 Mark as external so we can bundle correctly [[43332ca](https://github.com/segersniels/gitmoji/commit/43332caa308f5b5ee9460540b6fec98242c57cdd)]
+
+### Miscellaneous
+
+- 📝 Update changelog [[196e046](https://github.com/segersniels/gitmoji/commit/196e04655d1d2d067afa07330f7130de87fae7fd)]
+
+
 <a name="1.12.2"></a>
 ## 1.12.2 (2023-04-06)
 
