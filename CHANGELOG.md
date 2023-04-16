@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.12.5"></a>
+## 1.12.5 (2023-04-16)
+
+### Changed
+
+- ⚡ Exclude additional lockfiles [[4cb4eb0](https://github.com/segersniels/gitmoji/commit/4cb4eb05b012ab17ac2040b305c70b1db458d4ed)]
+
+
 <a name="1.12.4"></a>
 ## 1.12.4 (2023-04-09)
 
