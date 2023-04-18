@@ -19,8 +19,14 @@ export default class Cache {
     }
   }
 
-  public static async read(): Promise<Data> {
-    return JSON.parse(await fs.readFile(CACHE_FILE, 'utf8'));
+  public static async read(): Promise<Data | null> {
+    if (!(await Cache.exists())) {
+      return null;
+    }
+
+    const data = await fs.readFile(CACHE_FILE, 'utf8');
+
+    return JSON.parse(data);
   }
 
   public static async write(data: Pick<Data, 'gitmojis'>) {
