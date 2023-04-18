@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="1.12.6"></a>
+## 1.12.6 (2023-04-18)
+
+### Fixed
+
+- 🚑 Make sure we check if the cache file exists [[74cfa1d](https://github.com/segersniels/gitmoji/commit/74cfa1d8c93aa6d505ba8819c6e395efd1ca7f2d)]
+
+
 <a name="1.12.5"></a>
 ## 1.12.5 (2023-04-16)
 
