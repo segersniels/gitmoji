@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.13.0"></a>
+## 1.13.0 (2023-04-30)
+
+### Added
+
+- ✨ Add option to use gpt4 for commit generation [[d5672f3](https://github.com/segersniels/gitmoji/commit/d5672f3b3f991cfb02b7b55bb22b0dd6235babfc)]
+
+### Fixed
+
+- 🐛 Make sure we always exclude non boolean values from config [[fba198f](https://github.com/segersniels/gitmoji/commit/fba198fdc4b5a37ad77da8c3c69edb3afce5046a)]
+
+### Miscellaneous
+
+- 📝 Update CHANGELOG [[0ac2999](https://github.com/segersniels/gitmoji/commit/0ac2999ddb3273663be5f753badd993aeb4bef81)]
+
+
 <a name="1.12.6"></a>
 ## 1.12.6 (2023-04-18)
 
