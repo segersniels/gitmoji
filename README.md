@@ -37,6 +37,8 @@ You can generate commit messages based on your current staged changes by passing
 gitmoji commit --generate
 ```
 
+To use the latest model (GPT-4 at time of writing) simply enable it in the config using `gitmoji config enable`. By default `gitmoji` uses the `gpt-3.5-turbo` model.
+
 > Keep in mind that you will need to set the `OPENAI_API_KEY` environment variable which you can obtain through the OpenAI website.
 
 ## Config
