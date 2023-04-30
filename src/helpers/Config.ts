@@ -7,12 +7,14 @@ interface Config {
   [ConfigOptions.CapitalizeFirstLetter]: boolean;
   [ConfigOptions.TrackLastUsedMessage]: boolean;
   [ConfigOptions.LastUsedMessage]: string | null;
+  [ConfigOptions.UseLatestOpenAIModel]: boolean;
 }
 
 export const defaults: Config = {
   [ConfigOptions.CapitalizeFirstLetter]: true,
   [ConfigOptions.TrackLastUsedMessage]: false,
   [ConfigOptions.LastUsedMessage]: null,
+  [ConfigOptions.UseLatestOpenAIModel]: false,
 };
 
 export default class {

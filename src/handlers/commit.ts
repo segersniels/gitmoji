@@ -13,7 +13,11 @@ interface Options {
   context?: boolean;
 }
 
-async function generate(verify?: boolean, promptForContext?: boolean) {
+async function generate(
+  verify?: boolean,
+  promptForContext?: boolean,
+  useLatestOpenAIModel = false,
+) {
   if (!process.env.OPENAI_API_KEY) {
     console.error(`Unable to locate OPENAI_API_KEY in environment`);
     process.exit();
@@ -39,7 +43,12 @@ async function generate(verify?: boolean, promptForContext?: boolean) {
   }
 
   const { gitmojis } = await getEmojis();
-  const message = await generateMessage(diff, gitmojis, context);
+  const message = await generateMessage(
+    diff,
+    gitmojis,
+    context,
+    useLatestOpenAIModel,
+  );
 
   // Construct arguments
   const args = ['commit', '-m', `${message}`];
@@ -60,7 +69,11 @@ export default {
     const config = new Config();
 
     if (options.generate) {
-      return await generate(verify, options.context);
+      return await generate(
+        verify,
+        options.context,
+        config.get(ConfigOptions.UseLatestOpenAIModel),
+      );
     }
 
     const lastUsedMessage = config.get(ConfigOptions.LastUsedMessage);

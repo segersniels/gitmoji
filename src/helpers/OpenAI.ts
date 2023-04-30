@@ -154,8 +154,9 @@ export async function generateMessage(
   diff: string,
   gitmojis: Gitmoji[],
   context?: string,
+  useLatestOpenAIModel = false,
 ) {
-  const model = 'gpt-3.5-turbo';
+  const model = useLatestOpenAIModel ? 'gpt-4' : 'gpt-3.5-turbo';
   const encoding = encoding_for_model(model);
   let prompt = generatePrompt(diff, gitmojis, context);
 
