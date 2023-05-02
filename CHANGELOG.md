@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.13.1"></a>
+## 1.13.1 (2023-05-02)
+
+### Fixed
+
+- 🐛 Make sure to prioritise local usage [[369ad5b](https://github.com/segersniels/gitmoji/commit/369ad5bde2d89cd3e5d91ca759970d054b120d80)]
+
+### Miscellaneous
+
+- 📝 Notify users that they can use gpt-4 [[bbc90cb](https://github.com/segersniels/gitmoji/commit/bbc90cba8bb5a266075a104f69e440448c5bea7d)]
+- 📝 Update CHANGELOG [[4959954](https://github.com/segersniels/gitmoji/commit/49599544099bbd1d51c01f8e5b0445223d63db5c)]
+
+
 <a name="1.13.0"></a>
 ## 1.13.0 (2023-04-30)
 
