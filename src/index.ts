@@ -50,8 +50,8 @@ const program = new Command();
       }
 
       await handlers.commit.commit({
-        verify: options.verify || options.parent.verify,
-        previous: options.previous || options.parent.previous,
+        verify: options.verify ?? options.parent.verify,
+        previous: options.previous ?? options.parent.previous,
         generate: options.generate,
         context: options.context,
       });
