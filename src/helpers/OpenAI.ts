@@ -28,10 +28,14 @@ const FILES_TO_IGNORE = [
 /**
  * Removes lines from the diff that don't start with a special character
  */
-function removeExcessiveLinesFromChunk(diff: string) {
+function removeExcessiveLinesFromChunk(diff: string, minify: boolean) {
+  if (!minify) {
+    return diff;
+  }
+
   return diff
     .split('\n')
-    .filter(line => /^\W/.test(line))
+    .filter(line => /^[^\w\s]/gm.test(line))
     .join('\n');
 }
 
@@ -40,10 +44,6 @@ function removeExcessiveLinesFromChunk(diff: string) {
  * the lockfile changes and removing some of the whitespace.
  */
 function prepareDiff(diff: string, minify = false) {
-  if (!minify) {
-    return diff;
-  }
-
   const chunks = Array.from(
     diff.matchAll(/diff --git[\s\S]*?(?=diff --git|$)/g),
     match => match[0],
@@ -61,7 +61,7 @@ function prepareDiff(diff: string, minify = false) {
 
       return true;
     })
-    .map(removeExcessiveLinesFromChunk)
+    .map(chunk => removeExcessiveLinesFromChunk(chunk, minify))
     .join('\n');
 }
 
