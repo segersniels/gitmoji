@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="next"></a>
+## next
+
+### Miscellaneous
+
+- 📝 Update usage info [[6ad24ea](https://github.com/segersniels/gitmoji/commit/6ad24ea6abaf6189fcba9567fea39ba4332daee6)]
+
+
+<a name="1.14.0"></a>
+## 1.14.0 (2023-05-05)
+
+### Changed
+
+- 🎨 Improve readability by reusing code and throwing actual errors [[0738e9e](https://github.com/segersniels/gitmoji/commit/0738e9e79f6b2a8dce3bc72e7fde36dd2109e5fd)]
+- ♻️ Simplify by extracting some flags to actual commands [[12351c6](https://github.com/segersniels/gitmoji/commit/12351c6077ff16d4b59649eee16060adc0dd21e8)]
+
+### Miscellaneous
+
+- 📝 Update CHANGELOG [[c5a42e9](https://github.com/segersniels/gitmoji/commit/c5a42e96c8e1b3797c3ce466a63e75698c3602b9)]
+
+
 <a name="1.13.1"></a>
 ## 1.13.1 (2023-05-02)
 
