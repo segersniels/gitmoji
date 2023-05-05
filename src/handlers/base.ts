@@ -17,7 +17,7 @@ export default {
     try {
       await updateListFromRemote();
     } catch (err) {
-      return console.error(
+      throw new Error(
         'Failed to update, notify the author by creating an issue at: https://github.com/segersniels/gitmoji/issues',
       );
     }

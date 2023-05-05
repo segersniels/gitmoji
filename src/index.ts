@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import packageJson from 'package';
 import handlers from 'handlers';
+import { Warning } from 'helpers/Error';
 
 const program = new Command();
 
@@ -23,7 +24,7 @@ const program = new Command();
     .option('--context', 'Add additional context to commit generation')
     .action(async options => {
       if (options.context && !options.generate) {
-        return console.error(
+        throw new Error(
           'You must provide the --generate flag to provide additional context with the --context flag',
         );
       }
@@ -66,4 +67,12 @@ const program = new Command();
   program.addCommand(config);
 
   await program.parseAsync(process.argv);
-})();
+})().catch(err => {
+  if (err instanceof Warning) {
+    console.log((err as Error).message);
+    process.exit(0);
+  } else {
+    console.error((err as Error).message);
+    process.exit(1);
+  }
+});

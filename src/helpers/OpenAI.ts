@@ -166,11 +166,9 @@ export async function generateMessage(
 
     // Check if minified prompt is still too long
     if (encoding.encode(prompt).length > 4096) {
-      console.error(
+      throw new Error(
         'The diff is too large, try reducing the number of staged changes.',
       );
-
-      process.exit();
     }
   }
 
