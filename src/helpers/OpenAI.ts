@@ -92,7 +92,7 @@ function generatePrompt(
       - Config file adjustments are usually related to configuration changes.
 
     Here is a list of gitmoji codes and their descriptions of what they mean when they are used: """
-    ${list}
+    ${list.join('\n')}
     """
 
     Try to match the generated message to a fitting emoji using its description from the provided list above.
