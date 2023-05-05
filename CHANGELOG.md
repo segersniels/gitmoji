@@ -1,10 +1,16 @@
 # Changelog
 
-<a name="next"></a>
-## next
+<a name="1.14.1"></a>
+## 1.14.1 (2023-05-05)
+
+### Fixed
+
+- 🐛 Properly remove lockfiles and unused lines when minifying [[d589884](https://github.com/segersniels/gitmoji/commit/d589884a16d7d0aca69d82cd2b9753f48ee3b75a)]
+- 🚑 Make sure to join the array when passing it to the prompt [[6d28caf](https://github.com/segersniels/gitmoji/commit/6d28caf7d316eae2ced6e39bf694bcb21c19556d)]
 
 ### Miscellaneous
 
+- 📝 Update CHANGELOG [[2c66453](https://github.com/segersniels/gitmoji/commit/2c66453551e77f08c7c028bd307775e7f66a5a64)]
 - 📝 Update usage info [[6ad24ea](https://github.com/segersniels/gitmoji/commit/6ad24ea6abaf6189fcba9567fea39ba4332daee6)]
 
 
