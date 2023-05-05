@@ -9,28 +9,7 @@ const program = new Command();
   program
     .name('gitmoji')
     .version(packageJson.version)
-    .description('A gitmoji client for using emojis on commit messages.')
-    .option('-c, --commit', 'Interactively commit using the prompts')
-    .option('-l, --list', 'List all the available gitmojis')
-    .option('-u, --update', 'Sync emoji list with the repo')
-    .option('--no-verify', 'Bypass pre-commit and commit-msg hooks')
-    .option('-p, --previous', 'Commit using the last used commit message')
-    .action(async () => {
-      // Handle individual option handlers
-      if (program.commit) {
-        return await handlers.commit.commit({
-          verify: program.verify,
-          previous: program.previous,
-        });
-      } else if (program.list) {
-        return await handlers.base.list();
-      } else if (program.update) {
-        return await handlers.base.update();
-      }
-
-      // Show usage as last resort
-      return program.help();
-    });
+    .description('A gitmoji client for using emojis on commit messages.');
 
   program
     .command('commit')
@@ -49,12 +28,21 @@ const program = new Command();
         );
       }
 
-      await handlers.commit.commit({
-        verify: options.verify ?? options.parent.verify,
-        previous: options.previous ?? options.parent.previous,
-        generate: options.generate,
-        context: options.context,
-      });
+      await handlers.commit.commit(options);
+    });
+
+  program
+    .command('update')
+    .description('Sync emoji list with the repo')
+    .action(async () => {
+      await handlers.base.update();
+    });
+
+  program
+    .command('list')
+    .description('List all the available gitmojis')
+    .action(async () => {
+      await handlers.base.list();
     });
 
   const config = new Command('config').description(
